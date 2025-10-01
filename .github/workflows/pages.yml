@@ -27,3 +27,14 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+# ... build steps above
+- name: Build
+  run: npm run build
+
+- name: SPA 404 copy
+  run: if [ -f dist/index.html ]; then cp dist/index.html dist/404.html; fi
+
+- name: Upload artifact
+  uses: actions/upload-pages-artifact@v3
+  with:
+    path: 'dist'
